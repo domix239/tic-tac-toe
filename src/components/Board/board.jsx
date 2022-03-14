@@ -2,59 +2,33 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Square } from "../Square/square";
 import "../../index.css";
-import { calculateWinner } from "./helper";
 
 export const Board = (props) => {
- /* const [status, setStatus] = useState("Next player: X");
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [isX, setIsX] = useState(true);
-*/
 
-  const {squares, onClick} = props
+  const { squares, onClick } = props;
+  const col = 3;
+  const row = 3;
 
-  const renderSquare = (i) => {
-    return <Square value={squares[i]} onClick={() => onClick(i)} />;
-  };
-/*
-  const handleClick = (i) => {
-    const sqrs = squares.slice();
-
-    if(calculateWinner(sqrs) || sqrs[i])
-      return
-
-    sqrs[i] = isX ? "X" : "O";
-    setSquares(sqrs);
-    setIsX(!isX);
-    setStatus("Next player: " + (isX ? "X" : "O"));
+  const renderSquare = (val, idx) => {
+    return (
+      <Square key={"square_" + idx} value={val} onClick={() => onClick(idx)} />
+    );
   };
 
-  useEffect(() => {
-    const winner = calculateWinner(squares)
-    
-    if(winner)
-      setStatus(`Winner: ${winner}`)
-    else
-      setStatus(`Next player: ${isX ? 'X':'O'}`)
-
-  }, [isX]);
-*/
   return (
     <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
+      {[...Array(row)].map((_, ri) => {
+        return (
+          <div key={"row_" + ri} className="board-row">
+            {[...Array(col)].map((_, ci) => {
+              let _ri = ri === 1 ? ri+2 : ri === 2 ? ri+4 : ri;
+              let idx = _ri + ci;
+              console.log(_ri, ci);
+              return renderSquare(squares[idx], idx);
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 };
