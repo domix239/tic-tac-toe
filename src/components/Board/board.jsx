@@ -1,30 +1,59 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { Square } from "../Square/square";
+import "../../index.css";
+import { calculateWinner } from "./helper";
 
-const renderSquare = (i) => {
-  return <Square value={i} />;
-};
+export const Board = (props) => {
+ /* const [status, setStatus] = useState("Next player: X");
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [isX, setIsX] = useState(true);
+*/
 
-export const Board = () => {
-  const [status, setStatus] = useState("Next player: X");
+  const {squares, onClick} = props
 
+  const renderSquare = (i) => {
+    return <Square value={squares[i]} onClick={() => onClick(i)} />;
+  };
+/*
+  const handleClick = (i) => {
+    const sqrs = squares.slice();
+
+    if(calculateWinner(sqrs) || sqrs[i])
+      return
+
+    sqrs[i] = isX ? "X" : "O";
+    setSquares(sqrs);
+    setIsX(!isX);
+    setStatus("Next player: " + (isX ? "X" : "O"));
+  };
+
+  useEffect(() => {
+    const winner = calculateWinner(squares)
+    
+    if(winner)
+      setStatus(`Winner: ${winner}`)
+    else
+      setStatus(`Next player: ${isX ? 'X':'O'}`)
+
+  }, [isX]);
+*/
   return (
     <div>
-      <div className="status">{status}</div>
       <div className="board-row">
-        {this.renderSquare(0)}
-        {this.renderSquare(1)}
-        {this.renderSquare(2)}
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
       </div>
       <div className="board-row">
-        {this.renderSquare(3)}
-        {this.renderSquare(4)}
-        {this.renderSquare(5)}
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
       </div>
       <div className="board-row">
-        {this.renderSquare(6)}
-        {this.renderSquare(7)}
-        {this.renderSquare(8)}
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
       </div>
     </div>
   );

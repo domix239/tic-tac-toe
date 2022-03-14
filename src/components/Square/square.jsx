@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import "../../index.css";
 
-export const Square = (value) => {
-      return(
-          <button className="square">
-          {value}
-          </button>
-      )
-  }
+export const Square = (props) => {
+  const [player, setPlayer] = useState(null);
+
+  const { value, onClick } = props;
+
+  return (
+    <button className="square" onClick={onClick}>
+      {value}
+    </button>
+  );
+};
