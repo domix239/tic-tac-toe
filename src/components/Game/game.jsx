@@ -9,6 +9,8 @@ export const Game = () => {
   const [step, setStep] = useState(0);
   const winner = calculateWinner(history[step]);
 
+  useEffect(() => setHistory(history.slice(0, step + 1)), [step]);
+
   const handleClick = (i) => {
     const prevMoves = history.slice(0, step + 1);
     const current = prevMoves[step];
