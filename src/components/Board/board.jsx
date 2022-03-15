@@ -4,7 +4,6 @@ import { Square } from "../Square/square";
 import "../../index.css";
 
 export const Board = (props) => {
-
   const { squares, onClick } = props;
   const col = 3;
   const row = 3;
@@ -21,9 +20,7 @@ export const Board = (props) => {
         return (
           <div key={"row_" + ri} className="board-row">
             {[...Array(col)].map((_, ci) => {
-              let _ri = ri === 1 ? ri+2 : ri === 2 ? ri+4 : ri;
-              let idx = _ri + ci;
-              console.log(_ri, ci);
+              let idx = (ri === 1 ? ri + 2 : ri === 2 ? ri + 4 : ri) + ci;
               return renderSquare(squares[idx], idx);
             })}
           </div>
