@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Board } from "../Board/board";
 import "../../index.css";
-import { calculateWinner } from "./helper";
+import { calculateWinner, useCalcWinner } from "./helper";
 
 export const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [isX, setIsX] = useState(true);
   const [step, setStep] = useState(0);
-  const winner = calculateWinner(history[step]);
+  const { winner, winnerLanes, checkWin } = useCalcWinner(history[step]);
 
-  useEffect(() => setHistory(history.slice(0, step + 1)), [step]);
+  useEffect(() => {
+    checkWin(history[step]);
+    setHistory(history.slice(0, step + 1));
+  }, [step]);
+
+  useEffect(() => console.log("winner: ", winner, winnerLanes), [winner]);
 
   const handleClick = (i) => {
+    console.log("i", i);
     const prevMoves = history.slice(0, step + 1);
     const current = prevMoves[step];
     const sqrs = [...current];
