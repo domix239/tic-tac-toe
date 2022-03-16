@@ -33,6 +33,11 @@ ul {
   width: 34px;
 }
 
+.square.win-marker {
+  color: green;
+  background-color: lightgray;
+}
+
 .square:focus {
   outline: none;
 }
@@ -48,4 +53,8 @@ ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+li > button:focus {
+  font-weight: bold;
 }

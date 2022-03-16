@@ -1,16 +1,20 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
 import { Square } from "../Square/square";
 import "../../index.css";
 
 export const Board = (props) => {
-  const { squares, onClick } = props;
+  const { squares, onClick, winIndex } = props;
   const col = 3;
   const row = 3;
 
-  const renderSquare = (val, idx) => {
+  const renderSquare = (val, idx, isMarked) => {
     return (
-      <Square key={"square_" + idx} value={val} onClick={() => onClick(idx)} />
+      <Square
+        key={"square_" + idx}
+        value={val}
+        onClick={() => onClick(idx)}
+        isMarked={isMarked}
+      />
     );
   };
 
@@ -21,7 +25,9 @@ export const Board = (props) => {
           <div key={"row_" + ri} className="board-row">
             {[...Array(col)].map((_, ci) => {
               let idx = (ri === 1 ? ri + 2 : ri === 2 ? ri + 4 : ri) + ci;
-              return renderSquare(squares[idx], idx);
+              let isMarked = false;
+              if (winIndex && winIndex.includes(idx)) isMarked = true;
+              return renderSquare(squares[idx], idx, isMarked);
             })}
           </div>
         );
